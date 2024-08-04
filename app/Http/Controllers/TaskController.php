@@ -19,10 +19,7 @@ class TaskController extends Controller
             'title' => 'required',
             'description' => 'required',
         ]);
-
-        // Exclude 'completed' from request data
         $taskData = $request->only(['title', 'description']);
-
         $task = Task::create($taskData);
         return response()->json($task, 201);
     }
@@ -38,10 +35,7 @@ class TaskController extends Controller
             'title' => 'required',
             'description' => 'required',
         ]);
-
-        // Exclude 'completed' from request data
         $taskData = $request->only(['title', 'description']);
-
         $task->update($taskData);
         return response()->json($task);
     }
@@ -54,10 +48,8 @@ class TaskController extends Controller
 
     public function toggleComplete(Task $task)
     {
-        // Toggle the 'completed' status
         $task->completed = !$task->completed;
         $task->save();
-
         return response()->json($task);
     }
 }
